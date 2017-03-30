@@ -1,0 +1,13 @@
+AddDefaultCharset UTF-8
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^consulta/([0-9]+)$ consultab.php?id=$1
+RewriteRule ^consultas$ consultasb.php
+
+RewriteRule ^descargar-emails/?$ php/controllers/emailsToCsv.controller.php
+
+RewriteRule ^login/?$ loginb.php
+RewriteRule ^salir/?$ php/controllers/logout.controller.php
