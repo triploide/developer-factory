@@ -4,8 +4,11 @@ RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-RewriteRule ^consulta/([0-9]+)$ consultab.php?id=$1
-RewriteRule ^consultas$ consultasb.php
+RewriteRule ^grupo$ grupob.php
+RewriteRule ^grupo/([0-9a-z_-]+)$ grupob.php?slug=$1
+RewriteRule ^grupos$ gruposb.php
+
+RewriteRule ^ruleta$ ruletab.php
 
 RewriteRule ^descargar-emails/?$ php/controllers/emailsToCsv.controller.php
 

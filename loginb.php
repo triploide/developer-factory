@@ -21,7 +21,7 @@ include_once('php/includes/definer.php');
                     <div class="col-md-4 hidden-sm hidden-xs"></div>
                      <div class="col-md-4">
                         <div class="well no-padding">
-                            <form action="<?php echo(URL); ?>admin/php/controllers/login.controller.php" method="post" id="login-form" class="smart-form client-form">
+                            <form action="<?php echo(URL); ?>php/controllers/login.controller.php" method="post" id="login-form" class="smart-form client-form">
                                 <header>
                                     Login
                                 </header>
@@ -75,15 +75,15 @@ include_once('php/includes/definer.php');
         <!-- /tpls -->
 
         <!-- PAGE RELATED PLUGIN(S) -->
-        <script src="<?php echo(URL.'admin/'); ?>js/plugin/jquery-form/jquery-form.min.js"></script>
-        <script src="<?php echo(URL.'admin/'); ?>js/plugin/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
-        <script src="<?php echo(URL.'admin/'); ?>js/Replacer.js"></script>
-        <script src="<?php echo(URL.'admin/'); ?>js/plugin/jquery-tagsinput/jquery.tagsinput.min.js"></script>
-        <script src="<?php echo(URL.'admin/'); ?>js/plugin/summernote/summernote.min.js"></script>
-        <script src="<?php echo(URL.'admin/'); ?>js/plugin/summernote/summernote-es-ES.js"></script>
+        <script src="<?php echo(URL); ?>js/plugin/jquery-form/jquery-form.min.js"></script>
+        <script src="<?php echo(URL); ?>js/plugin/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
+        <script src="<?php echo(URL); ?>js/Replacer.js"></script>
+        <script src="<?php echo(URL); ?>js/plugin/jquery-tagsinput/jquery.tagsinput.min.js"></script>
+        <script src="<?php echo(URL); ?>js/plugin/summernote/summernote.min.js"></script>
+        <script src="<?php echo(URL); ?>js/plugin/summernote/summernote-es-ES.js"></script>
 
-        <script src="<?php echo(URL.'admin/'); ?>js/boxMessage.js"></script>
-        <script src="<?php echo(URL.'admin/'); ?>js/publicacion.js"></script>
+        <script src="<?php echo(URL); ?>js/boxMessage.js"></script>
+        <script src="<?php echo(URL); ?>js/publicacion.js"></script>
     </body>
 
 </html>

@@ -17,7 +17,7 @@ include('php/checkers/login.checker.php');
 
         <!-- MAIN PANEL -->
         <div id="main" role="main">
-            <?php include('php/printers/consulta.printer.php'); ?>
+            <?php include('php/printers/grupo.printer.php'); ?>
         </div>
         <!-- END MAIN PANEL -->
 
@@ -30,11 +30,12 @@ include('php/checkers/login.checker.php');
 
         <?php include('tpl/partials/javascript.tpl'); ?>
 
-        <!-- PAGE RELATED PLUGIN(S) -->
-        <script src="<?php echo(URL.'admin/'); ?>js/plugin/jquery-form/jquery-form.min.js"></script>
-        <script src="<?php echo(URL.'admin/'); ?>js/Replacer.js"></script>
-        <script src="<?php echo(URL.'admin/'); ?>js/boxMessage.js"></script>
-        <script src="<?php echo(URL.'admin/'); ?>js/comentario.js"></script>
+        <!-- PAGE RELATED PLUGIN(S) -->   
+        <script src="<?php echo(URL); ?>js/plugin/jquery-form/jquery-form.min.js"></script>
+        <script src="<?php echo(URL); ?>js/Replacer.js"></script>
+        <script src="<?php echo(URL); ?>js/boxMessage.js"></script>
+        <script src="<?php echo(URL); ?>js/ajaxImagesUploader.js"></script>
+        <script src="<?php echo(URL); ?>js/grupo.js"></script>
     </body>
 
 </html>

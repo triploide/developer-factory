@@ -2,7 +2,7 @@
 <header id="header">
     <div id="logo-group">
         <!-- PLACE YOUR LOGO HERE -->
-        <span id="logo"> <img src="<?php echo(URL.'admin/'); ?>img/logo.png" alt="SmartAdmin"> </span>
+        <span id="logo"> <img src="<?php echo(URL); ?>img/logo.png" alt="SmartAdmin"> </span>
     </div>
 
     <!-- #TOGGLE LAYOUT BUTTONS -->
@@ -17,7 +17,7 @@
 
         <!-- logout button -->
         <div id="logout" class="btn-header transparent pull-right">
-            <span> <a href="/admin/salir"><i class="fa fa-sign-out"></i></a> </span>
+            <span> <a href="/salir"><i class="fa fa-sign-out"></i></a> </span>
         </div>
         <!-- end logout button -->
 

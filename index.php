@@ -1,1 +1,1 @@
-<?php header('location: consultas'); exit(); ?>
+<?php header('location: grupos'); exit(); ?>

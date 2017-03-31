@@ -1,33 +1,36 @@
 <?php
 include_once('../includes/definer.php');
-include_once(INC.'admin/php/bootstrap.php');
+include_once(INC.'php/bootstrap.php');
 
 $orderColumn = array(
-    'fecha',
+    'imagen',
     'nombre',
-    'contenido',
-    'estado',
+    'integrantes',
+    'puntos',
     0
 );
 
 $data = Doctrine_Query::create()
-    ->select('c.id, c.fecha, c.contenido, c.leido as estado_id, c.nombre')
-    ->from('Consulta c')
+    ->select('g.id, g.slug, g.nombre, g.puntos, GROUP_CONCAT(i.nombre, ", ") as integrantes, img.src as imagen')
+    ->from('Grupo as g')
+    ->leftJoin('g.integrantes as i')
+    ->leftJoin('g.imagen as img')
     ->limit($_GET['length'])
     ->offset($_GET['start'])
+    ->groupBy('g.id')
     ->orderBy($orderColumn[$_GET['order'][0]['column']].' '.$_GET['order'][0]['dir']);
 ;
 
 $recordsTotal = Doctrine_Query::create()
-    ->select('count(c.id)')
-    ->from('Consulta c')
+    ->select('count(g.id)')
+    ->from('Grupo as g')
 ;
 $recordsFiltered = $recordsTotal->copy();
 
 //busqueda
 if ($_GET['search']['value']) {
-    $data->andWhere('c.nombre like "'.$_GET['search']['value'].'%"');
-    $recordsFiltered->andWhere('c.nombre like "'.$_GET['search']['value'].'%"');
+    $data->andWhere('g.nombre like "'.$_GET['search']['value'].'%"');
+    $recordsFiltered->andWhere('g.nombre like "'.$_GET['search']['value'].'%"');
 }
 
 //ejecuto los dql

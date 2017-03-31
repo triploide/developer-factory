@@ -23,7 +23,7 @@ include('php/checkers/login.checker.php');
 
                 <!-- breadcrumb -->
                 <ol class="breadcrumb">
-                    <li>Consultas</li>
+                    <li>Grupos</li>
                     <li>Listado</li>
                 </ol>
                 <!-- end breadcrumb -->
@@ -38,14 +38,19 @@ include('php/checkers/login.checker.php');
                 <!-- PAGE HEADER -->
                 <div class="row">
                     <!-- col -->
-                    <div class="col-xs-12 col-sm-12">
+                    <div class="col-xs-12 col-sm-8">
                         <h1 class="page-title">
-                            <i class="fa-fw fa fa-comments"></i> 
-                                Consultas 
+                            <i class="fa-fw fa fa-users"></i> 
+                                Grupos 
                             <span>>  
                                 Listado
                             </span>
                         </h1>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 text-right">
+                        <a href="grupo" class="btn btn-sm btn-success" style="margin-top: 12px">
+                           <span class="fa fa-plus"></span> Nuevo
+                        </a>
                     </div>
                     <!-- end col -->
                 </div>
@@ -74,20 +79,20 @@ include('php/checkers/login.checker.php');
 
                                 <header>
                                     <span class="widget-icon"> <i class="fa fa-list"></i> </span>
-                                    <h2>Listado de consultas</h2>              
+                                    <h2>Listado de grupos</h2>              
                                 </header>
                 
                                 <!-- widget div-->
                                 <div>
                                     <!-- widget content -->
                                     <div class="widget-body no-padding">
-                                        <table id="tableConsultas" class="table table-striped table-bordered table-hover" width="100%">
+                                        <table id="tableGrupos" class="table table-striped table-bordered table-hover" width="100%">
                                             <thead>                         
                                                 <tr>
-                                                    <th>Fecha</th>
+                                                    <th>Imagen</th>
                                                     <th>Nombre</th>
-                                                    <th>Consulta</th>
-                                                    <th>Estado</th>
+                                                    <th>Integrantes</th>
+                                                    <th>Puntos</th>
                                                     <th><i class="fa fa-fw fa-cog text-muted hidden-md hidden-sm hidden-xs"></i> Acciones</th>
                                                 </tr>
                                             </thead>
@@ -128,6 +133,20 @@ include('php/checkers/login.checker.php');
         <?php include('tpl/partials/javascript.tpl'); ?>
 
         <!-- PAGE RELATED PLUGIN(S) -->
+        <script src="js/plugin/maxlength/bootstrap-maxlength.min.js"></script>
+        <script src="js/plugin/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
+        <script src="js/plugin/clockpicker/clockpicker.min.js"></script>
+        <script src="js/plugin/bootstrap-tags/bootstrap-tagsinput.min.js"></script>
+        <script src="js/plugin/noUiSlider/jquery.nouislider.min.js"></script>
+        <script src="js/plugin/ion-slider/ion.rangeSlider.min.js"></script>
+        <script src="js/plugin/colorpicker/bootstrap-colorpicker.min.js"></script>
+        <script src="js/plugin/knob/jquery.knob.min.js"></script>
+        <script src="js/plugin/x-editable/moment.min.js"></script>
+        <script src="js/plugin/x-editable/jquery.mockjax.min.js"></script>
+        <script src="js/plugin/x-editable/x-editable.min.js"></script>
+        <script src="js/plugin/typeahead/typeahead.min.js"></script>
+        <script src="js/plugin/typeahead/typeaheadjs.min.js"></script>
+        
         <script src="js/plugin/datatables/jquery.dataTables.min.js"></script>
         <script src="js/plugin/datatables/dataTables.colVis.min.js"></script>
         <script src="js/plugin/datatables/dataTables.tableTools.min.js"></script>
@@ -135,7 +154,7 @@ include('php/checkers/login.checker.php');
         <script src="js/plugin/datatable-responsive/datatables.responsive.min.js"></script>
 
         <script src="js/boxMessage.js"></script>
-        <script src="js/consultas.js"></script>
+        <script src="js/grupos.js"></script>
     </body>
 
 </html>

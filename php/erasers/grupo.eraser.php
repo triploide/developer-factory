@@ -1,11 +1,11 @@
 <?php
 include_once('../includes/definer.php');
-include_once(INC.'admin/php/bootstrap.php');
-
-$consulta = Doctrine::getTable('Consulta')->find($_POST['id']);
-
+include_once(INC.'php/bootstrap.php');
 $response = array('error'=>false);
-$consulta->delete();
+
+$grupo = Doctrine::getTable('Grupo')->find($_POST['id']);
+$grupo->integrantes->delete();
+$grupo->delete();
 
 header('Content-Type: application/json');
 echo(json_encode($response));

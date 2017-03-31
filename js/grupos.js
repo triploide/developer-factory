@@ -4,7 +4,7 @@ $(document).ready(function () {
     boxes();
     borrar();
     borrarModalInit();
-    $('#left-panel li[data-nav="consultas"]').addClass('active');
+    $('#left-panel li[data-nav="gruposgrupo"]').addClass('active');
 });
 
 var dataTable, currentRow = 0,
@@ -16,6 +16,24 @@ var dataTable, currentRow = 0,
 ;
 
 var formatData = {
+    imagen: {
+        data: {
+            'noImage':'imagen-no-disponible.jpg',
+            'path': '/content/grupos/'
+        },
+        render: function (imagen) {
+            imagen = imagen || this.data.noImage;
+            return '\
+                 <a href="javascript:void(0);" rel="tooltip" data-placement="top" data-original-title="<img width=\'120\' src=\''+BASE_URL+this.data.path+imagen+'\' class=\'online\'>" data-html="true">\
+                    <img style="width:30px; border: solid 1px #ccc" src="'+BASE_URL+this.data.path+'thumb/'+imagen+'"\
+                </a>\
+            ';
+        }
+    },
+    puntos: function (grupo) {
+        var puntos = grupo.puntos * 1;
+        return '<a href="puntos" class="editable editable-click" data-id="'+grupo.id+'" data-type="text" data-original-title="Puntos">' + puntos + '</a>';
+    },
     labelMap: {
         data: {
             1:{i: 1,'label':'success','value':'Leída'},
@@ -39,14 +57,15 @@ var formatData = {
     },
     acciones: function (row) {
         return '\
-            <a href="consulta/'+row.id+'" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>\
-            <a data-consulta="'+row.id+'" class="borrar btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></a>\
+            <a href="grupo/'+row.slug+'" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a>\
+            <a href="grupo/'+row.slug+'/seleccionar-integrante" class="btn btn-info btn-sm"><i class="fa fa-random"></i></a>\
+            <a data-id="'+row.id+'" class="borrar btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></a>\
         ';
     }
 }
 
 function dtInit () {
-    dataTable = $('#tableConsultas').dataTable({
+    dataTable = $('#tableGrupos').dataTable({
         "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"+
             "t"+
             "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
@@ -54,13 +73,12 @@ function dtInit () {
         processing: false,
         serverSide: true,
         stateSave: false,
-        ajax: BASE_URL+'admin/php/providers/consultas.provider.php',
-        language: dtLanguage,
+        ajax: BASE_URL+'php/providers/grupos.provider.php',
         language: dtLanguage,
         "preDrawCallback" : function() {
             // Initialize the responsive datatables helper once.
             if (!responsiveHelper_dt_basic) {
-                responsiveHelper_dt_basic = new ResponsiveDatatablesHelper($('#tableConsultas'), breakpointDefinition);
+                responsiveHelper_dt_basic = new ResponsiveDatatablesHelper($('#tableGrupos'), breakpointDefinition);
             }
         },
         "rowCallback" : function(nRow, aData) {
@@ -68,30 +86,31 @@ function dtInit () {
         },
         "drawCallback" : function(oSettings) {
             $('a[rel="tooltip"]').tooltip();
+            puntos();
             responsiveHelper_dt_basic.respond();
         },
         columnDefs: [
             {
                 render: function ( data, type, row ) {
-                    return formatData.normalizeDate(row.fecha)
+                    return formatData.imagen.render(row.imagen);
                 },
                 targets: 0
             },
             {
                 render: function ( data, type, row ) {
-                    return formatData.shortenerText(row.nombre, 55);
+                    return row.nombre;
                 },
                 targets: 1
             },
             {
                 render: function ( data, type, row ) {
-                    return formatData.shortenerText(row.contenido, 55);
+                    return formatData.shortenerText(row.integrantes);
                 },
                 targets: 2
             },
             {
                 render: function ( data, type, row ) {
-                    return formatData.labelMap.render(row);
+                    return formatData.puntos(row);
                 },
                 targets: 3
             },
@@ -103,19 +122,44 @@ function dtInit () {
             },
             { 
                 sortable: false,
-                targets: [3,1,2,4]
+                targets: [0,1,2,4]
             }
         ],
-        order: [[ 0, "asc" ]]
+        order: [[ 3, "desc" ]]
     });
+}
+
+//puntos
+function puntos () {
+    $('.editable').editable({
+        'url': BASE_URL+'php/controllers/grupo.controller.php',
+        send: 'always',
+        name:'puntos',
+        value: function () {
+            return '';
+        },
+        params: function (params) {
+            params.id = $(this).attr('data-id');
+            params.puntos = params.value;
+            return params; 
+        },
+        ajaxOptions: {
+            type: 'post',
+            dataType: 'json' //assuming json response
+        },
+        success: function (response) {
+            if(!response.success) return response.error;
+            return {newValue: response.value}
+        }
+    })
 }
 
 //borrar
 function borrar () {
     var id, $row;
-    $('#tableConsultas').on('click', '.borrar', function (event) {
+    $('#tableGrupos').on('click', '.borrar', function (event) {
         $row = $(this).parents('tr');
-        id = $(this).attr('data-consulta');
+        id = $(this).attr('data-id');
         event.preventDefault();
         borrarModalInit();
         $('#modalBorrar').modal('show');
@@ -124,7 +168,7 @@ function borrar () {
             loaderModalInit();
             $.ajax({
                 type:'post',
-                url: BASE_URL+'admin/php/erasers/consulta.eraser.php',
+                url: BASE_URL+'php/erasers/grupo.eraser.php',
                 data:{'id':id},
                 success: function (data) {
                     $('#modalBorrar').modal('hide');
@@ -133,7 +177,7 @@ function borrar () {
                             500,
                             function () {
                                 $row.remove();
-                                if ($('#tableConsultas tbody tr').length == 0) dataTable.api().ajax.reload();
+                                if ($('#tableGrupos tbody tr').length == 0) dataTable.api().ajax.reload();
                             }
                         );
                     } else {
@@ -151,9 +195,9 @@ function borrar () {
 
 //modals
 function borrarModalInit () {
-    $('#modalBorrar .modal-title .text').html('Borrar Consulta');
+    $('#modalBorrar .modal-title .text').html('Borrar Grupo');
     $('#modalBorrar .modal-title .jarviswidget-loader').hide();
-    $('#modalBorrar .modal-body .content').html('<p>¿Está seguro que desea borrar esta consulta?</p>');
+    $('#modalBorrar .modal-body .content').html('<p>¿Está seguro que desea borrar este grupo?</p>');
     $('#modalBorrar #modalAction').html('Borrar').addClass('btn-danger');
     $('#modalBorrar .modal-footer button').attr('disabled', false);
     $('#modalBorrar .modal-footer button.btn-default').show();
@@ -169,7 +213,9 @@ function loaderModalInit () {
 
 //boxes
 function boxes () {
-    if (document.location.hash == '#borrado') boxSuccess('La consulta se eliminó con éxito');
+    if (document.location.hash == '#new') boxSuccess('El grupo se creó con éxito');
+    if (document.location.hash == '#edit') boxSuccess('El grupo se editó con éxito');
+    if (document.location.hash == '#borrado') boxSuccess('El grupo se eliminó con éxito');
     document.location.hash = '';
 }
 //---
