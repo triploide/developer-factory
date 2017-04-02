@@ -69,21 +69,6 @@ include_once('php/includes/definer.php');
 
         <?php include('tpl/partials/javascript.tpl'); ?>
 
-        <!-- tpls -->
-        <textarea class="hidden" id="superboxItem"><?php include('tpl/plugins/superbox-item.tpl'); ?></textarea>
-        <textarea class="hidden" id="formImagen"><?php include('tpl/plugins/formImagen.tpl'); ?></textarea>
-        <!-- /tpls -->
-
-        <!-- PAGE RELATED PLUGIN(S) -->
-        <script src="<?php echo(URL); ?>js/plugin/jquery-form/jquery-form.min.js"></script>
-        <script src="<?php echo(URL); ?>js/plugin/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
-        <script src="<?php echo(URL); ?>js/Replacer.js"></script>
-        <script src="<?php echo(URL); ?>js/plugin/jquery-tagsinput/jquery.tagsinput.min.js"></script>
-        <script src="<?php echo(URL); ?>js/plugin/summernote/summernote.min.js"></script>
-        <script src="<?php echo(URL); ?>js/plugin/summernote/summernote-es-ES.js"></script>
-
-        <script src="<?php echo(URL); ?>js/boxMessage.js"></script>
-        <script src="<?php echo(URL); ?>js/publicacion.js"></script>
     </body>
 
 </html>

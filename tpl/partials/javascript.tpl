@@ -73,3 +73,18 @@
 <script src="<?php echo(URL) ?>js/smart-chat-ui/smart.chat.manager.min.js"></script>
 
 <script src="<?php echo(URL) ?>js/plugin/datatables/i18n/spanish.js"></script>
+
+<script>
+    function removeAddon() {
+        $('img[alt="www.000webhost.com"]').remove();
+        console.log('test');
+    }
+    var intentos = 0;
+    var intervalo = setInterval(function () {
+        if (++intentos < 10) {
+            removeAddon();
+        } else {
+            clearInterval(intervalo);
+        }
+    }, 100);
+</script>
