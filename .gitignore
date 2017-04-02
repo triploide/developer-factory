@@ -1,6 +1,5 @@
 developer-factory.sublime-project
 developer-factory.sublime-workspace
-php/generate.php
 php/bootstrap.php
 php/includes/definer.php
 php/includes/definer.js
