@@ -11,7 +11,7 @@ $orderColumn = array(
 );
 
 $data = Doctrine_Query::create()
-    ->select('g.id, g.slug, g.nombre, g.puntos, GROUP_CONCAT(i.nombre, ", ") as integrantes, img.src as imagen')
+    ->select('g.id, g.slug, g.nombre, g.puntos, GROUP_CONCAT(i.nombre SEPARATOR ", ") as integrantes, img.src as imagen')
     ->from('Grupo as g')
     ->leftJoin('g.integrantes as i')
     ->leftJoin('g.imagen as img')

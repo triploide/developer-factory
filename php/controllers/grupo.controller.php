@@ -21,13 +21,13 @@ if ($_POST['id']) {
 }
 $grupo->nombre = $_POST['nombre'];
 
-foreach ($_POST['integrantes'] as $nombre) { 
-    var_dump($nombre);
-    if ($nombre) {
+foreach ($_POST['integrantes'] as $nombre) {
+    if (!empty($nombre)) {
         $integrante = new Integrante();
         $integrante->nombre = $nombre;
+        $integrante->grupo = $grupo;
+        $integrante->save();
     }
-    $grupo->integrantes[] = $integrante;
 }
 $grupo->save();
 

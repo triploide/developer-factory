@@ -5,7 +5,7 @@
 <html lang="es-ar">
 <head>
     <script><?php include('php/includes/definer.js'); ?></script>
-    <title>Castinver - Administrador</title>
+    <title>Developer Factory - Administrador</title>
     <?php include('tpl/head.tpl'); ?>
 </head>
 

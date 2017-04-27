@@ -91,14 +91,11 @@ var Ruleta = (function () {
         return colores[i];
     }
 
-    function spin(d){
-        
+    function spin(d) {
+       
         container.on("click", null);
 
-        //all slices have been seen, all done
-        console.log("OldPick: " + oldpick.length, "Data length: " + data.length);
         if(oldpick.length == data.length){
-            console.log("done");
             container.on("click", null);
             return;
         }
@@ -137,13 +134,15 @@ var Ruleta = (function () {
                     d3.select("#question h1")
                      .text(data[picked].question);
                 */
-                $('p[data-grupo]').hide();
-                $('.roulette_container, .btn_container, p[data-grupo="'+data[picked].id+'"]').show();
-
+                $('.roulette').hide();
+                $('.roulette_container, .btn_container').show();
+                $('.roulette[data-grupo="'+data[picked].id+'"]').show();
+                console.log('.roulette[data-grupo="'+data[picked].id+'"]')
+                
                 oldrotation = rotation;
             
                 container.on("click", spin);
-            })
+            });
         ;
     }
 
@@ -160,7 +159,6 @@ var Ruleta = (function () {
 
         if(window.hasOwnProperty("crypto") && typeof window.crypto.getRandomValues === "function"){
             window.crypto.getRandomValues(array);
-            console.log("works");
         } else {
             //no support for crypto, get crappy random numbers
             for(var i=0; i < 1000; i++){

@@ -1,7 +1,7 @@
 <meta charset="utf-8">
-<title>Castinver - Administrador</title>
+<title>Developer Factory - Administrador</title>
 <meta name="description" content="Administrador de contenido para el sitio web Castinver">
-<meta name="author" content="GreenTomato">
+<meta name="author" content="Maxi Yañez">
     
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 

@@ -10,7 +10,15 @@ $grupos = Doctrine::getTable('Grupo')->findAll();
         <?php include('tpl/partials/head.tpl'); ?>
         <link rel="stylesheet" type="text/css" href="css/ruleta.css">
         <style type="text/css">
-            
+            div.roulette_container {
+                margin-top: 50px;
+            }
+            div.roulette-inner {
+                /*left: 0*/
+            }
+            .roulette .opcion {
+                font-size: 16px
+            }
         </style>
     </head>
 
@@ -96,16 +104,16 @@ $grupos = Doctrine::getTable('Grupo')->findAll();
                                                 <div id="chart"></div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="roulette_container" style="display: none">
-                                                    <div class="roulette" style="display:none;"> 
-                                                        <?php
-                                                            foreach ($grupos as $grupo) {
-                                                                foreach ($grupo->integrantes as $integrante) {
-                                                                    echo '<p style="display: none" class="opcion" data-grupo="'.$grupo->id.'">'.$integrante->nombre.'</p>';
-                                                                }
+                                                <div class="roulette_container" style="display:none;">
+                                                    <?php
+                                                        foreach ($grupos as $grupo) {
+                                                            echo('<div class="roulette" data-grupo="'.$grupo->id.'" style="display:none;">');
+                                                            foreach ($grupo->integrantes as $integrante) {
+                                                                echo '<p class="opcion">'.$integrante->nombre.'</p>';
                                                             }
-                                                        ?>
-                                                    </div> 
+                                                            echo('</div>');
+                                                        }
+                                                    ?>
                                                 </div>
                                                 <div class="btn_container" style="display: none">
                                                     <p>
@@ -158,33 +166,19 @@ $grupos = Doctrine::getTable('Grupo')->findAll();
                 pageSetUp();
                 $('#left-panel li[data-nav="ruleta"]').addClass('active');
             });
-            var data = [
-                {"label":"Grupo 1",  "value":1,  "id":"1"},
-                {"label":"Grupo 2",  "value":1,  "id":"2"},
-                {"label":"Grupo 3",  "value":1,  "id":"1"},
-                {"label":"Grupo 4",  "value":1,  "id":"2"}
-            ];
+            var data = <?php include('php/providers/gruposData.provider.php'); ?>;
                 
             Ruleta.init(data);
 
-            var option = {
-                speed : 10,
-                duration : 2,
-                stopImageNumber : -1,
-                startCallback : function() {
-                    console.log('start');
-                },
-                slowDownCallback : function() {
-                    console.log('slowDown');
-                },
-                stopCallback : function($stopElm) {
-                    console.log('stop');
-                }
-            }
-            $('div.roulette').roulette(option);
             $('.start').click(function(){
                 $('div.roulette').roulette('start');    
             });
+            var option = {
+                speed : 10,
+                duration : 2,
+                stopImageNumber : -1
+            }
+            $('.roulette').roulette(option);
         </script>
 
     </body>
